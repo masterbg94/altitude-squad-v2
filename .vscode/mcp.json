@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "supabase": {
+      "type": "http",
+      "url": "http://127.0.0.1:54321/mcp?features=database,development"
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  },
+  "inputs": []
+}

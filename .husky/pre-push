@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+echo "🏗️  Pokrećem build za proveru pre push-a..."
+
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build nije prošao. Push je blokiran."
+  exit 1
+fi
+
+echo "✅ Build uspešan. Push se nastavlja."

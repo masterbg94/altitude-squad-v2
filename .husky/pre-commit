@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+# ONLY FILES INSIDE THAT FOLDERS AND ALL TS FILES
+
+changed_files=$(git diff --cached --name-only --diff-filter=ACMR)
+
+paths_to_check="^(lib|app|components|messages|src|supabase)/"
+ts_files=".*\.ts$"
+
+if echo "$changed_files" | grep -qE "$paths_to_check" || echo "$changed_files" | grep -qE "$ts_files"; then
+  echo "📂 Detektovane izmene u relevantnim folderima ili .ts fajlovima"
+  echo "🔎 Pokrećem lint za proveru pre commit-a..."
+
+  npm run lint
+
+  if [ $? -ne 0 ]; then
+    echo "❌ Lint nije prošao. Commit je blokiran."
+    exit 1
+  fi
+
+  echo "✅ Lint uspešan. Commit se nastavlja."
+else
+  echo "⏭️  Nema izmena u relevantnim folderima niti .ts fajlovima — lint je preskočen."
+fi
