@@ -8,9 +8,9 @@ const body = Figtree({ subsets: ["latin", "latin-ext"], variable: "--font-body" 
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} | Rope access and high-altitude work in ${site.city}`, template: `%s | ${site.name}` },
+  title: { default: `Visinski radovi Beograd | Rad na užetu | ${site.name}`, template: `%s | ${site.name}` },
   description: site.description,
-  keywords: ["rope access", "high-altitude work", "industrial climbers", "facade cleaning", "facade repair", site.city],
+  keywords: ["visinski radovi", "radovi na visini", "visinski radovi Beograd", "alpinistički radovi", "rad na užetu", "pranje fasada", "sanacija krova", site.city],
   alternates: { canonical: "/" },
   openGraph: { type: "website", title: site.name, description: site.description, url: site.url, siteName: site.name },
   twitter: { card: "summary_large_image", title: site.name, description: site.description },
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     makesOffer: site.services.map(([n]) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: n } })),
   };
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="sr" className={`${display.variable} ${body.variable}`}>
       <body>
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

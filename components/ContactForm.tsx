@@ -25,26 +25,26 @@ export default function ContactForm() {
   }
 
   if (state === "ok")
-    return <p className="form-ok" role="status">Thanks, we got your request. We'll reply within one working day.</p>;
+    return <p className="form-ok" role="status">Hvala, primili smo vaš zahtev. Odgovaramo u roku od jednog radnog dana.</p>;
 
   return (
     <form onSubmit={submit} className="form">
-      <label>Name<input name="name" required maxLength={80} autoComplete="name" /></label>
+      <label>Ime<input name="name" required maxLength={80} autoComplete="name" /></label>
       <label>Email<input name="email" type="email" required autoComplete="email" /></label>
-      <label>Phone (optional)<input name="phone" type="tel" autoComplete="tel" /></label>
-      <label>What do you need?
+      <label>Telefon (opciono)<input name="phone" type="tel" autoComplete="tel" /></label>
+      <label>Šta vam treba?
         <select name="service" defaultValue="">
-          <option value="" disabled>Choose a service</option>
+          <option value="" disabled>Izaberite uslugu</option>
           {site.services.map(([t]) => <option key={t}>{t}</option>)}
-          <option>Not sure yet</option>
+          <option>Jos ne znam</option>
         </select>
       </label>
-      <label className="wide">Tell us about the job
-        <textarea name="message" required minLength={10} maxLength={3000} rows={5} placeholder="Address, height, what needs doing, preferred dates" />
+      <label className="wide">Opišite posao
+        <textarea name="message" required minLength={10} maxLength={3000} rows={5} placeholder="Adresa, visina, šta treba uraditi, željeni datumi" />
       </label>
       <input name="website" tabIndex={-1} autoComplete="off" className="hp" aria-hidden />
-      <button className="btn" disabled={state === "sending"}>{state === "sending" ? "Sending..." : "Send request"}</button>
-      {state === "error" && <p className="form-err" role="alert">{msg} You can also email {site.email}.</p>}
+      <button className="btn" disabled={state === "sending"}>{state === "sending" ? "Šaljemo..." : "Pošaljite zahtev"}</button>
+      {state === "error" && <p className="form-err" role="alert">{msg} Možete nam se javiti i na {site.email}.</p>}
     </form>
   );
 }
