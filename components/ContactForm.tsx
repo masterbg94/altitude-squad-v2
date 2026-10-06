@@ -2,7 +2,11 @@
 import { useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultService?: string;
+}
+
+export default function ContactForm({ defaultService }: ContactFormProps) {
   const [state, setState] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [msg, setMsg] = useState("");
 
@@ -18,9 +22,11 @@ export default function ContactForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
-      setState("ok"); form.reset();
+      setState("ok");
+      form.reset();
     } catch (err) {
-      setState("error"); setMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setState("error");
+      setMsg(err instanceof Error ? err.message : "Something went wrong.");
     }
   }
 
@@ -33,10 +39,10 @@ export default function ContactForm() {
       <label>Email<input name="email" type="email" required autoComplete="email" /></label>
       <label>Telefon (opciono)<input name="phone" type="tel" autoComplete="tel" /></label>
       <label>Šta vam treba?
-        <select name="service" defaultValue="">
+        <select name="service" defaultValue={defaultService || ""}>
           <option value="" disabled>Izaberite uslugu</option>
           {site.services.map(([t]) => <option key={t}>{t}</option>)}
-          <option>Jos ne znam</option>
+          <option>Još ne znam</option>
         </select>
       </label>
       <label className="wide">Opišite posao

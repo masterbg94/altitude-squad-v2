@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import workerImage from "@/app/assets/altitude-worker2.png";
+import { useEffect, useRef, useState } from "react";
 
-// Fixed rope on the page edge. The climber descends as you scroll and his legs pump with the scroll distance.
 export default function RopeClimber() {
   const ref = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -31,17 +31,23 @@ export default function RopeClimber() {
       cancelAnimationFrame(raf);
     };
   }, []);
+
   return (
-    <div ref={ref} className="rc" aria-hidden>
-      <div className="rc-rope" />
-      <div className="rc-fill" />
+    <div ref={ref} className="rc" aria-hidden="true" role="img" aria-label="Animirani alpinista koji spušta uz stranicu prilikom skrolovanja">
+      <div className="rc-rope" aria-hidden="true" />
+      <div className="rc-fill" aria-hidden="true" />
       <Image
         className="rc-man"
-        src={workerImage}
-        alt=""
+        src="/altitude-worker2.png"
+        alt="Tehničar visinskih radova na užetu - animacija skrolovanja"
         width={375}
         height={666}
-        unoptimized
+        priority={false}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+        sizes="(max-width: 820px) 60px, 60px"
+        style={{ opacity: isLoaded ? 1 : 0, transition: "opacity 0.3s ease" }}
+        onLoad={() => setIsLoaded(true)}
       />
     </div>
   );
